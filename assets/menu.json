@@ -1,0 +1,467 @@
+{
+  "restaurant": {
+    "name": "Capanna",
+    "address": "Angle Avenue de France et Rue Oued Sebou, Agdal, Rabat",
+    "phone": "212600000000",
+    "instagram": "https://www.instagram.com/capanna.agdal/",
+    "hours": {
+      "lundi_jeudi": "12h00 - 23h30",
+      "vendredi_samedi": "12h00 - 00h30",
+      "dimanche": "12h00 - 23h00"
+    }
+  },
+  "categories": [
+    { "id": "salade", "label": "Salade" },
+    { "id": "antipasti", "label": "Anti pasti" },
+    { "id": "risotto", "label": "Risotto" },
+    { "id": "pizza", "label": "Pizza au four de bois" },
+    { "id": "pasta", "label": "Pasta" },
+    { "id": "plats", "label": "Plats" },
+    { "id": "desserts", "label": "Desserts" },
+    { "id": "boissons", "label": "Boissons" },
+    { "id": "jus", "label": "Jus" }
+  ],
+  "items": [
+    {
+      "id": "sal01",
+      "category": "salade",
+      "name": "La César à notre façon",
+      "description": "Épaisse tranche de poulet grillée dorée, lit salade romaine, lardons de jambon, crumble au parmesan, anchois fait maison, copeaux de parmesan et la vraie sauce césar.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "sal02",
+      "category": "salade",
+      "name": "Penne poulet gourmand",
+      "description": "Penne, poulet, sauce maison, lardons de légumes du marché, billes de mozzarella, tomates séchées.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "sal03",
+      "category": "salade",
+      "name": "Avocat Gambas du jour",
+      "description": "Tartare avocat gambas mélangé avec sa sauce spéciale maison.",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "sal04",
+      "category": "salade",
+      "name": "Capanna",
+      "description": "Tartare avocat gambas mélangé avec sa sauce spéciale maison.",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "sal05",
+      "category": "salade",
+      "name": "Burrata d’hiver",
+      "description": "Burrata fraîche servie selon l'inspiration de saison.",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1625943553852-781c6dd46faa?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ant01",
+      "category": "antipasti",
+      "name": "Gamberitti Tempura",
+      "description": "Délicieuses crevettes en tempura croustillantes, accompagnées d'une sauce sucrée et savoureuse au miel et à l'ail.",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ant02",
+      "category": "antipasti",
+      "name": "Arancinis Fromage",
+      "description": "Croquette de riz façon risotto farcie au fromage panée à l'anglaise, et sauce tomate concassée du chef.",
+      "price": 35,
+      "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ant03",
+      "category": "antipasti",
+      "name": "Cassolette de Gambas",
+      "description": "Gambas servies chaudes en cassolette.",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ant04",
+      "category": "antipasti",
+      "name": "Pince de Crabe",
+      "description": "Pince de crabe servie en entrée.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ris01",
+      "category": "risotto",
+      "name": "Verde al Pollo",
+      "description": "Risotto crémeux au poulet tendre, délicatement parfumé d'une sauce pesto maison.",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ris02",
+      "category": "risotto",
+      "name": "Risotto Scampi à l’Ail",
+      "description": "Poulet caramélisé à l'ail et au miel de Toscane, avec risotto aux herbes fraîches.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ris03",
+      "category": "risotto",
+      "name": "Honey Garlic Chicken",
+      "description": "Risotto, crevettes succulentes, tendres et gorgées de saveur avec une touche d'ail parfumé.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1633964913295-ceb43826e7c1?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "ris04",
+      "category": "risotto",
+      "name": "Risotto Ai Frutti di Mare",
+      "description": "Risotto aux fruits de mer.",
+      "price": 79,
+      "image": "https://images.unsplash.com/photo-1633436375795-12b3b339712f?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz01",
+      "category": "pizza",
+      "name": "Amore",
+      "description": "Sauce tomate maison, basilic, mozzarella fraîche et plein de fromage et d’amour.",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz02",
+      "category": "pizza",
+      "name": "Veggie",
+      "description": "Sauce pesto, mozzarella, courgette, aubergine, brocoli, 3 poivrons, oignons et olives noires.",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz03",
+      "category": "pizza",
+      "name": "Viande hachée",
+      "description": "Sauce tomate maison, viande hachée, poivrons, olives noires et oignons.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1593504049359-74330189a345?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz04",
+      "category": "pizza",
+      "name": "Poulet barbecue",
+      "description": "Sauce crème parmesan, poulet grillé, oignon frit, et sauce barbecue.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz05",
+      "category": "pizza",
+      "name": "Panuozzo",
+      "description": "Sandwich César accompagné de ses frites.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz06",
+      "category": "pizza",
+      "name": "Pepperoni Maison Lascours",
+      "description": "Sauce tomate, plein de fromage, pepperoni de bœuf.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz07",
+      "category": "pizza",
+      "name": "Fête du Fromage",
+      "description": "Mozzarella, édam, gorgonzola, vieux parmesan, et mozzarella de bufala.",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1548369937-47519962c11a?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz08",
+      "category": "pizza",
+      "name": "Pizza César",
+      "description": "Épaisse tranche de poulet grillée dorée, lit salade romaine, lardons de jambon, crumble au parmesan, anchois fait maison, copeaux de parmesan et la vraie sauce césar.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz09",
+      "category": "pizza",
+      "name": "La Capanna",
+      "description": "Crème de parmesan, mozzarella, tomates cerises, stracciatella, jambon de dinde, roquette, vieux parmesan et sauce pesto.",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz10",
+      "category": "pizza",
+      "name": "Campione",
+      "description": "Sauce tomate, pepperoni de bœuf, viande hachée, champignons, oignons, poivrons et olives noires.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1593504049359-74330189a345?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "piz11",
+      "category": "pizza",
+      "name": "Saveurs Atlantique",
+      "description": "Crème homardière, mozzarella, gambas, calamar à l'encre noire, palourdes, moules et persillade à l'ail.",
+      "price": 89,
+      "image": "https://images.unsplash.com/photo-1600628421055-4d30de868b8f?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas01",
+      "category": "pasta",
+      "name": "Lasagna ai Frutti di Mare",
+      "description": "Lasagne généreuse garnie de fruits de mer frais et nappée d'une onctueuse sauce blanche.",
+      "price": 79,
+      "image": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas02",
+      "category": "pasta",
+      "name": "Penne Amore",
+      "description": "Penne poêlée à la sauce tomate piquante agrémentée d'un savoureux mélange de tomates concassées, tomates cerises, basilic et une touche de parmesan.",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas03",
+      "category": "pasta",
+      "name": "Bolognaise tout simplement",
+      "description": "Pâtes à la bolognaise maison.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas04",
+      "category": "pasta",
+      "name": "Alfredo",
+      "description": "Penne, poulet, sauce spéciale Alfredo.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas05",
+      "category": "pasta",
+      "name": "Carbonara à notre façon",
+      "description": "Tagliatelles, lardons de jambon, vieux parmesan, champignons et sa sauce spéciale carbonara.",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas06",
+      "category": "pasta",
+      "name": "Pollo al pesto",
+      "description": "Rigatoni, sauce pesto à la crème de parmesan.",
+      "price": 59,
+      "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas07",
+      "category": "pasta",
+      "name": "Lasagne à la bolognaise",
+      "description": "Cuisinée avec un mélange de viande hachée mijoté à la sauce tomate, béchamel, gratinée au parmesan.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas08",
+      "category": "pasta",
+      "name": "Gambero Rosa",
+      "description": "Spaghetti gambas sautées à l'ail, crème parmesan et notre sauce rosée.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas09",
+      "category": "pasta",
+      "name": "Pesto del Mare",
+      "description": "Tagliatelles fraîches et délicates, associées à un pesto de basilic parfumé et couronnées de crevettes succulentes.",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas10",
+      "category": "pasta",
+      "name": "Salmone",
+      "description": "Tagliatelle, sauce homardine, saumon.",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pas11",
+      "category": "pasta",
+      "name": "Saveurs de l’océan",
+      "description": "Linguine, calamars, crevettes, palourdes, moules, sauce spéciale à l'ail.",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla01",
+      "category": "plats",
+      "name": "Espadon Impérial",
+      "description": "Délicieux espadon accompagné d'un riz aux champignons de Paris et nappé d'une onctueuse sauce blanche.",
+      "price": 99,
+      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla02",
+      "category": "plats",
+      "name": "Pollo parmigiana",
+      "description": "Steak de poulet napolitain pané à l'anglaise, vieux parmesan, penne pomodoro.",
+      "price": 69,
+      "image": "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla03",
+      "category": "plats",
+      "name": "Suprême de poulet",
+      "description": "Escalope de poulet grillée et servie avec sa purée et légumes du marché.",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla04",
+      "category": "plats",
+      "name": "Scaloppine alla milanese tartufo",
+      "description": "Escalope de veau panée de chapelure et parmesan, tagliatelles à la crème de truffe, accompagnées de ses légumes.",
+      "price": null,
+      "priceLabel": "Prix sur place",
+      "image": "https://images.unsplash.com/photo-1625938144755-652e08e359b7?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla05",
+      "category": "plats",
+      "name": "Entrecôte de bœuf",
+      "description": "Entrecôte de bœuf 250 g servie avec frites.",
+      "price": 130,
+      "image": "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "pla06",
+      "category": "plats",
+      "name": "Pavé de saumon",
+      "description": "Pavé de saumon poêlé aux herbes, servi avec sa purée, des légumes du marché et crevette.",
+      "price": 115,
+      "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "des01",
+      "category": "desserts",
+      "name": "Panna Cotta Rossa",
+      "description": "Panna cotta maison à la vanille bourbon, coulis de fruits rouges.",
+      "price": 35,
+      "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "des02",
+      "category": "desserts",
+      "name": "Panna Cotta",
+      "description": "Panna cotta maison.",
+      "price": 35,
+      "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "des03",
+      "category": "desserts",
+      "name": "Tiramisu",
+      "description": "Crème de mascarpone à l'amaretto sur son biscuit savoiardi au café, le tout saupoudré de cacao.",
+      "price": 35,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "des04",
+      "category": "desserts",
+      "name": "Tiramisu Kunafa Pistachio",
+      "description": "Tiramisu façon kunafa pistachio.",
+      "price": 40,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "des05",
+      "category": "desserts",
+      "name": "Haagen-Dazs",
+      "description": "Glace Haagen-Dazs.",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "boi01",
+      "category": "boissons",
+      "name": "Eau Minérale",
+      "description": "Eau minérale.",
+      "price": 12,
+      "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "boi02",
+      "category": "boissons",
+      "name": "Eau Pétillante",
+      "description": "Eau pétillante.",
+      "price": 15,
+      "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "boi03",
+      "category": "boissons",
+      "name": "Soda",
+      "description": "Soda.",
+      "price": 18,
+      "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "boi04",
+      "category": "boissons",
+      "name": "Nespresso",
+      "description": "Café Nespresso.",
+      "price": 21,
+      "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "jus01",
+      "category": "jus",
+      "name": "Citron basilic",
+      "description": "Jus citron basilic.",
+      "price": 22,
+      "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "jus02",
+      "category": "jus",
+      "name": "Citron gingembre",
+      "description": "Jus citron gingembre.",
+      "price": 25,
+      "image": "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "jus03",
+      "category": "jus",
+      "name": "Betterave orange fleur d’oranger",
+      "description": "Jus betterave, orange et fleur d’oranger.",
+      "price": 25,
+      "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "jus04",
+      "category": "jus",
+      "name": "Orange frais",
+      "description": "Jus d'orange frais.",
+      "price": 25,
+      "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "id": "jus05",
+      "category": "jus",
+      "name": "Orange fraise",
+      "description": "Jus orange fraise.",
+      "price": 30,
+      "image": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=900&q=80"
+    }
+  ]
+}

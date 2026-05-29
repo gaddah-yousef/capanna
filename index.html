@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Capanna — Trattoria italienne contemporaine à l'Agdal, Rabat.">
+    <title>Capanna · Trattoria · Agdal, Rabat</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        espresso: '#0E0B08',
+                        ink:      '#181410',
+                        cream:    '#F3EAD8',
+                        bone:     '#E8DCC4',
+                        terra:    '#C2603A',
+                        terraLt:  '#D17A47',
+                        olive:    '#6B5D4F'
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        sans:    ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        :root { --cursor-x: 50%; --cursor-y: 50%; }
+        * { box-sizing: border-box; }
+        html, body { background: #0E0B08; color: #F3EAD8; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+        .font-display { font-family: 'Fraunces', serif; font-feature-settings: "ss01"; }
+
+        /* ===== Grain de film ===== */
+        body::before {
+            content: ''; position: fixed; inset: 0; z-index: 100; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.92 0 0 0 0 0.85 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.08; mix-blend-mode: overlay;
+        }
+
+        /* ===== Curseur custom ===== */
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+            .cursor-dot, .cursor-ring {
+                position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+                border-radius: 9999px; transform: translate(-50%, -50%);
+                mix-blend-mode: difference;
+            }
+            .cursor-dot  { width: 6px;  height: 6px;  background: #F3EAD8; transition: transform 120ms ease; }
+            .cursor-ring { width: 38px; height: 38px; border: 1px solid #F3EAD8; transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1), width 220ms ease, height 220ms ease; }
+            .cursor-hover .cursor-ring { width: 70px; height: 70px; border-color: #D17A47; }
+            .cursor-hover .cursor-dot  { transform: translate(-50%, -50%) scale(0); }
+        }
+
+        /* Curseur natif : plus propre et moins gênant sur le hero */
+        @media (pointer: fine) {
+            * { cursor: auto !important; }
+            a, button, label, [data-cursor-hover] { cursor: pointer !important; }
+            input, textarea, select { cursor: text !important; }
+            .cursor-dot, .cursor-ring { display: none !important; }
+        }
+
+        /* ===== Loader ===== */
+        .loader {
+            position: fixed; inset: 0; z-index: 200; background: #0E0B08;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 600ms ease, visibility 600ms;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-letter {
+            display: inline-block; font-family: 'Fraunces', serif; font-size: clamp(3rem, 12vw, 8rem);
+            transform: translateY(100%); opacity: 0;
+            animation: letterUp 800ms cubic-bezier(0.2,0.8,0.2,1) forwards;
+        }
+        @keyframes letterUp { to { transform: translateY(0); opacity: 1; } }
+
+        /* ===== Reveal au scroll ===== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 900ms cubic-bezier(0.2,0.8,0.2,1), transform 900ms cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        .reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+        .reveal-stagger.in > *:nth-child(1) { transition-delay: 0ms; }
+        .reveal-stagger.in > *:nth-child(2) { transition-delay: 100ms; }
+        .reveal-stagger.in > *:nth-child(3) { transition-delay: 200ms; }
+        .reveal-stagger.in > *:nth-child(4) { transition-delay: 300ms; }
+        .reveal-stagger.in > *:nth-child(5) { transition-delay: 400ms; }
+        .reveal-stagger.in > *:nth-child(6) { transition-delay: 500ms; }
+
+        /* ===== Hero : comptoir vivant ===== */
+        #hero {
+            background:
+                linear-gradient(115deg, rgba(14,11,8,0.96) 0%, rgba(14,11,8,0.86) 46%, rgba(35,26,17,0.88) 100%),
+                url("https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1800&q=80") center/cover;
+        }
+        #hero::before {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background:
+                linear-gradient(90deg, rgba(14,11,8,0.86), rgba(14,11,8,0.24) 48%, rgba(14,11,8,0.76)),
+                repeating-linear-gradient(90deg, rgba(243,234,216,0.04) 0 1px, transparent 1px 84px);
+        }
+        .hero-kicker-line { width: 3rem; height: 1px; background: #D17A47; }
+        .hero-proof {
+            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+            border-top: 1px solid rgba(243,234,216,0.14);
+            border-bottom: 1px solid rgba(243,234,216,0.14);
+        }
+        .hero-proof > div { padding: 1rem 1.1rem; border-right: 1px solid rgba(243,234,216,0.12); }
+        .hero-proof > div:last-child { border-right: 0; }
+
+        .hero-scene {
+            position: relative; min-height: 620px; isolation: isolate; perspective: 1500px;
+        }
+        .hero-scene::before {
+            content: ''; position: absolute; inset: 4% 4% 10% 14%; z-index: -1;
+            border: 1px solid rgba(243,234,216,0.12);
+            background: linear-gradient(135deg, rgba(107,93,79,0.34), rgba(194,96,58,0.12));
+            transform: rotate(-3deg);
+        }
+        .hero-scene::after {
+            content: ''; position: absolute; left: 7%; right: 0; bottom: 6%; height: 18%;
+            background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.46));
+            filter: blur(16px); z-index: -1;
+        }
+        .dish-3d {
+            position: absolute; inset: 5% 12% 11% 16%; overflow: hidden;
+            border-radius: 50% 50% 8px 8px / 34% 34% 8px 8px;
+            background: #15100c; transform-style: preserve-3d; will-change: transform;
+            box-shadow: 0 44px 90px -34px rgba(0,0,0,0.88), inset 0 0 0 1px rgba(243,234,216,0.2);
+        }
+        .dish-3d::before {
+            content: ''; position: absolute; inset: 14px; z-index: 3; pointer-events: none;
+            border: 1px solid rgba(243,234,216,0.18);
+            border-radius: 48% 48% 6px 6px / 32% 32% 6px 6px;
+        }
+        .dish-3d::after {
+            content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+            background: linear-gradient(180deg, rgba(14,11,8,0.05) 0%, rgba(14,11,8,0.08) 45%, rgba(14,11,8,0.72) 100%);
+        }
+        .dish-img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.08); }
+        .dish-glow {
+            position: absolute; left: 10%; right: 10%; bottom: 8%; height: 3px; z-index: 4;
+            background: linear-gradient(90deg, transparent, #D17A47, #F3EAD8, #C2603A, transparent);
+            box-shadow: 0 0 24px rgba(209,122,71,0.9);
+        }
+        .dish-plate {
+            position: absolute; left: 50%; bottom: 7%; z-index: 5;
+            width: 72%; height: 11%; transform: translateX(-50%);
+            border: 1px solid rgba(243,234,216,0.22); border-radius: 9999px;
+            background: rgba(14,11,8,0.34); backdrop-filter: blur(8px);
+        }
+        .recipe-slip {
+            position: absolute; z-index: 7; width: min(46%, 250px); padding: 1.1rem;
+            color: #15100c; background: rgba(243,234,216,0.94);
+            box-shadow: 0 24px 60px -22px rgba(0,0,0,0.75);
+        }
+        .recipe-slip::before {
+            content: ''; position: absolute; left: 1rem; right: 1rem; top: 3.2rem;
+            border-top: 1px dashed rgba(21,16,12,0.28);
+        }
+        .recipe-slip.main { right: 0; top: 12%; transform: rotate(4deg); }
+        .recipe-slip.small {
+            left: 2%; bottom: 14%; width: min(38%, 190px);
+            background: rgba(107,93,79,0.88); color: #F3EAD8; transform: rotate(-5deg);
+        }
+        .capanna-stamp {
+            position: absolute; left: 3%; top: 5%; z-index: 8;
+            width: 132px; height: 132px; display: grid; place-items: center;
+            border: 1px solid rgba(243,234,216,0.35); border-radius: 9999px;
+            background: rgba(14,11,8,0.68); backdrop-filter: blur(12px);
+            box-shadow: 0 24px 50px -28px rgba(0,0,0,0.8);
+        }
+        .capanna-stamp svg { position: absolute; inset: 9px; animation: spin 28s linear infinite; }
+        .capanna-stamp strong { font-family: 'Fraunces', serif; font-size: 1.35rem; letter-spacing: 0.08em; }
+        .float-chip {
+            position: absolute; padding: 0.56rem 0.9rem; background: rgba(14,11,8,0.7); backdrop-filter: blur(12px);
+            border: 1px solid rgba(243,234,216,0.18); border-radius: 9999px;
+            font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+            animation: floatY 5s ease-in-out infinite; z-index: 9; white-space: nowrap;
+            box-shadow: 0 18px 38px -28px rgba(0,0,0,0.85);
+        }
+        .float-chip::before {
+            content: ''; display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.55rem;
+            border-radius: 9999px; background: #D17A47;
+        }
+        .chip-sage::before { background: #8FA66B; }
+        .chip-cream::before { background: #F3EAD8; }
+        @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        @media (max-width: 767px) {
+            .hero-scene { min-height: 470px; margin-top: 1rem; }
+            .hero-scene::before { inset: 7% 3% 10% 8%; }
+            .dish-3d { inset: 8% 7% 14% 9%; }
+            .capanna-stamp { width: 98px; height: 98px; left: 0; top: 4%; }
+            .capanna-stamp strong { font-size: 1.05rem; }
+            .recipe-slip { padding: 0.85rem; }
+            .recipe-slip.main { width: 52%; right: 0; top: 11%; }
+            .recipe-slip.small { width: 36%; left: 0; bottom: 10%; }
+            .float-chip { font-size: 0.56rem; letter-spacing: 0.12em; padding: 0.46rem 0.66rem; }
+        }
+
+        @media (max-width: 420px) {
+            .hero-proof > div { padding: 0.8rem 0.65rem; }
+            .recipe-slip.main { width: 58%; }
+            .recipe-slip.small { width: 42%; }
+        }
+
+        /* ===== Marquee ===== */
+        .marquee {
+            display: flex; overflow: hidden; gap: 4rem; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+        }
+        .marquee-track {
+            display: flex; gap: 4rem; flex-shrink: 0;
+            animation: marquee 35s linear infinite;
+        }
+        @keyframes marquee { to { transform: translateX(-50%); } }
+
+        /* ===== Cartes menu : tilt 3D ===== */
+        .menu-card {
+            transform-style: preserve-3d; transition: transform 400ms cubic-bezier(0.2,0.8,0.2,1);
+            will-change: transform;
+        }
+        .menu-card .layer-img { transition: transform 500ms ease; transform: translateZ(0); }
+        .menu-card:hover .layer-img { transform: translateZ(40px) scale(1.05); }
+        .menu-card .layer-text { transition: transform 500ms ease; }
+        .menu-card:hover .layer-text { transform: translateZ(60px); }
+
+        /* ===== Onglets ===== */
+        .tab-btn { transition: all 350ms ease; position: relative; }
+        .tab-btn::after {
+            content: ''; position: absolute; left: 0; bottom: -2px; height: 1px; width: 0; background: currentColor;
+            transition: width 350ms cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .tab-btn.active::after, .tab-btn:hover::after { width: 100%; }
+        .tab-btn.active { color: #D17A47; }
+
+        /* ===== Navbar ===== */
+        .nav-scrolled { background: rgba(14,11,8,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(243,234,216,0.08); }
+
+        /* ===== Magnetic buttons ===== */
+        .magnetic { transition: transform 200ms cubic-bezier(0.2,0.8,0.2,1); display: inline-block; }
+        .btn-pill {
+            position: relative; overflow: hidden; isolation: isolate;
+            padding: 1.1rem 2.2rem; border-radius: 9999px;
+            font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+            transition: color 300ms;
+        }
+        .btn-pill::before {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background: #D17A47; transform: translateY(100%);
+            transition: transform 400ms cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .btn-pill:hover::before { transform: translateY(0); }
+        .btn-pill.solid { background: #F3EAD8; color: #0E0B08; }
+        .btn-pill.solid:hover { color: #F3EAD8; }
+        .btn-pill.ghost { border: 1px solid rgba(243,234,216,0.3); color: #F3EAD8; }
+        .btn-pill.ghost:hover { color: #F3EAD8; }
+
+        /* ===== Sidebar panier ===== */
+        .cart-sidebar { transform: translateX(100%); transition: transform 500ms cubic-bezier(0.7,0,0.2,1); }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-backdrop { opacity: 0; pointer-events: none; transition: opacity 400ms ease; }
+        .cart-backdrop.open { opacity: 1; pointer-events: auto; }
+
+        /* ===== Modale ===== */
+        .modal-overlay { opacity: 0; pointer-events: none; transition: opacity 300ms; }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-card { transform: translateY(40px) scale(0.96); transition: transform 500ms cubic-bezier(0.2,0.8,0.2,1); }
+        .modal-overlay.open .modal-card { transform: translateY(0) scale(1); }
+
+        /* ===== Champs formulaires ===== */
+        .field {
+            background: transparent; border: none; border-bottom: 1px solid rgba(243,234,216,0.2);
+            padding-bottom: 0.5rem; color: #F3EAD8; transition: border-color 300ms, padding 300ms;
+        }
+        .field:focus { outline: none; border-color: #D17A47; padding-bottom: 0.7rem; }
+        .field::placeholder { color: rgba(243,234,216,0.3); }
+
+        /* ===== Parallax helpers ===== */
+        .parallax { will-change: transform; }
+
+        /* ===== Badge panier ===== */
+        .cart-badge { transition: transform 250ms cubic-bezier(0.4,1.5,0.5,1); }
+        .cart-badge.pulse { transform: scale(1.4); }
+
+        /* ===== Scrollbar discrète ===== */
+        .thin-scroll::-webkit-scrollbar { width: 4px; }
+        .thin-scroll::-webkit-scrollbar-thumb { background: rgba(243,234,216,0.15); border-radius: 2px; }
+
+        /* ===== Texte qui suit le scroll ===== */
+        .word-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+        .word-mask > span { display: inline-block; transform: translateY(110%); transition: transform 900ms cubic-bezier(0.2,0.8,0.2,1); }
+        .in .word-mask > span, .reveal.in .word-mask > span { transform: translateY(0); }
+
+        /* ===== Section ingredients showcase ===== */
+        .ring-rotate { animation: spin 30s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== Mobile : pas de cursor custom ni tilt ===== */
+        @media (pointer: coarse) {
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-espresso text-cream">
+
+    <!-- ============== LOADER ============== -->
+    <div id="loader" class="loader">
+        <div class="overflow-hidden flex">
+            <span class="loader-letter" style="animation-delay: 0ms">C</span>
+            <span class="loader-letter" style="animation-delay: 80ms">A</span>
+            <span class="loader-letter" style="animation-delay: 160ms">P</span>
+            <span class="loader-letter" style="animation-delay: 240ms">A</span>
+            <span class="loader-letter" style="animation-delay: 320ms">N</span>
+            <span class="loader-letter" style="animation-delay: 400ms">N</span>
+            <span class="loader-letter" style="animation-delay: 480ms">A</span>
+        </div>
+    </div>
+
+    <!-- Curseur custom -->
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- ============== NAVBAR ============== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-500">
+        <nav class="max-w-[1500px] mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+            <a href="#hero" class="font-display text-xl md:text-2xl tracking-[0.3em] font-medium" data-cursor-hover>CAPANNA</a>
+
+            <ul class="hidden md:flex items-center gap-12 text-xs tracking-[0.25em] uppercase">
+                <li><a href="#menu" class="tab-btn pb-1" data-cursor-hover>Menu</a></li>
+                <li><a href="#story" class="tab-btn pb-1" data-cursor-hover>Maison</a></li>
+                <li><a href="#reservation" class="tab-btn pb-1" data-cursor-hover>Réserver</a></li>
+                <li><a href="#infos" class="tab-btn pb-1" data-cursor-hover>Trouver</a></li>
+            </ul>
+
+            <button id="open-cart-btn" class="magnetic relative inline-flex items-center gap-3 border border-cream/30 hover:border-terraLt rounded-full px-5 py-2.5 text-xs tracking-[0.25em] uppercase transition-colors" data-cursor-hover>
+                <span class="hidden sm:inline">Panier</span>
+                <span id="cart-count" class="cart-badge inline-flex items-center justify-center min-w-[24px] h-6 bg-terra text-cream text-[10px] font-semibold rounded-full px-2">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ============== HERO ============== -->
+    <section id="hero" class="relative min-h-[100svh] overflow-hidden flex items-center pt-28 pb-20 md:pb-12">
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none parallax" data-speed="0.3">
+            <span class="font-display italic text-[9rem] md:text-[15rem] lg:text-[21rem] leading-none text-cream/[0.035] font-light select-none whitespace-nowrap">capanna</span>
+        </div>
+
+        <div class="relative max-w-[1500px] mx-auto px-6 md:px-12 w-full grid md:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+            <div class="md:col-span-6 relative z-10">
+                <div class="reveal" data-reveal>
+                    <p class="text-[10px] tracking-[0.4em] uppercase text-terraLt mb-8 flex items-center gap-3">
+                        <span class="hero-kicker-line inline-block"></span>
+                        Trattoria contemporaine · Agdal
+                    </p>
+                </div>
+
+                <h1 class="reveal font-display text-6xl md:text-8xl lg:text-9xl leading-[0.92] font-light" data-reveal>
+                    <span class="word-mask"><span>CAPANNA</span></span><br>
+                    <span class="word-mask"><span class="italic font-normal text-terraLt">à table</span></span><span class="text-terraLt">.</span>
+                </h1>
+
+                <div class="reveal mt-10 max-w-md" data-reveal>
+                    <p class="text-cream/60 leading-relaxed">
+                        Pizza au feu, pasta fresca et petites assiettes italiennes servies dans une ambiance de comptoir vivant, à l'angle de l'avenue de France.
+                    </p>
+                </div>
+
+                <div class="reveal mt-12 flex flex-wrap gap-4" data-reveal>
+                    <a href="#menu" class="magnetic btn-pill solid" data-cursor-hover>Commander en ligne</a>
+                    <a href="#reservation" class="magnetic btn-pill ghost" data-cursor-hover>Réserver une table</a>
+                </div>
+
+                <div class="reveal mt-14 hero-proof max-w-xl text-xs tracking-widest uppercase text-cream/50" data-reveal>
+                    <div><span class="block text-3xl font-display text-cream mb-1">48h</span>Pâte lente</div>
+                    <div><span class="block text-3xl font-display text-cream mb-1">12</span>Tables</div>
+                    <div><span class="block text-3xl font-display text-cream mb-1">7/7</span>Service</div>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 relative">
+                <div class="hero-scene stage mx-auto max-w-[620px]">
+
+                    <div id="dish" class="dish-3d">
+                        <div class="dish-glow"></div>
+                        <div class="dish-plate"></div>
+                        <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?auto=format&fit=crop&w=900&q=80" alt="Pizza Capanna" class="dish-img">
+                    </div>
+
+                    <div class="capanna-stamp" aria-hidden="true">
+                        <svg viewBox="0 0 120 120">
+                            <defs>
+                                <path id="stamp-circ" d="M 60,60 m -48,0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"/>
+                            </defs>
+                            <text font-family="Inter" font-size="8" fill="#F3EAD8" letter-spacing="2.3">
+                                <textPath href="#stamp-circ">RABAT · CUCINA ITALIANA · RABAT · CUCINA ITALIANA · </textPath>
+                            </text>
+                        </svg>
+                        <strong>CA</strong>
+                    </div>
+
+                    <div class="recipe-slip main">
+                        <p class="text-[10px] tracking-[0.32em] uppercase opacity-60">Menu du soir</p>
+                        <p class="font-display text-3xl mt-5 leading-none">Margherita<br><span class="italic">Populaire</span></p>
+                        <p class="mt-5 text-xs uppercase tracking-[0.2em]">Tomate · basilic · fior di latte</p>
+                    </div>
+
+                    <div class="recipe-slip small">
+                        <p class="text-[10px] tracking-[0.28em] uppercase opacity-65">Sortie du four</p>
+                        <p class="font-display text-2xl mt-3 leading-none">45 Dh</p>
+                    </div>
+
+                    <div class="float-chip" style="top: 26%; right: 4%; animation-delay: 0s">San Marzano</div>
+                    <div class="float-chip chip-cream" style="top: 54%; left: -1%; animation-delay: 1.5s">Fior di latte</div>
+                    <div class="float-chip chip-sage" style="bottom: 7%; right: 10%; animation-delay: 3s">Basilico fresco</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll cue -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 text-[10px] tracking-[0.4em] uppercase text-cream/40">
+            <span>Faire défiler</span>
+            <span class="w-px h-10 bg-cream/30 origin-top scroll-line"></span>
+        </div>
+        <style>.scroll-line { animation: scrollDown 2s ease-in-out infinite; } @keyframes scrollDown { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }</style>
+    </section>
+
+    <!-- ============== MARQUEE ============== -->
+    <section class="border-y border-cream/10 py-8 bg-ink">
+        <div class="marquee">
+            <div class="marquee-track font-display italic text-3xl md:text-5xl text-cream/70 whitespace-nowrap">
+                <span>Pasta fresca</span><span class="text-terraLt">·</span>
+                <span>Pizza napoletana</span><span class="text-terraLt">·</span>
+                <span>Dolci della casa</span><span class="text-terraLt">·</span>
+                <span>Vini italiani</span><span class="text-terraLt">·</span>
+                <span>Pasta fresca</span><span class="text-terraLt">·</span>
+                <span>Pizza napoletana</span><span class="text-terraLt">·</span>
+                <span>Dolci della casa</span><span class="text-terraLt">·</span>
+                <span>Vini italiani</span><span class="text-terraLt">·</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== STORY / PHILOSOPHIE ============== -->
+    <section id="story" class="relative py-32 md:py-48 overflow-hidden">
+        <div class="max-w-[1500px] mx-auto px-6 md:px-12 grid md:grid-cols-12 gap-12 items-center">
+
+            <div class="md:col-span-5 relative">
+                <div class="relative aspect-[4/5] overflow-hidden parallax" data-speed="-0.15">
+                    <img src="assets/capanna.png" alt="Façade du restaurant Capanna" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-espresso/45 via-transparent to-transparent"></div>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 md:col-start-7 reveal" data-reveal>
+                <p class="text-[10px] tracking-[0.4em] uppercase text-terraLt mb-8">— La maison</p>
+                <h2 class="font-display text-5xl md:text-7xl leading-[1.05] font-light">
+                    Une cuisine<br>
+                    <span class="italic">presque</span> simple,<br>
+                    obstinément <span class="text-terraLt italic">juste</span>.
+                </h2>
+                <p class="mt-10 text-cream/65 leading-relaxed max-w-lg">
+                    Capanna n'est pas un restaurant italien de plus. C'est un atelier où la pâte respire 48 heures, où les pâtes sortent du laminoir le matin, où la mozzarella arrive deux fois par semaine de Campanie. La carte est courte parce qu'elle est honnête.
+                </p>
+                <div class="mt-10 grid grid-cols-2 gap-6 max-w-md">
+                    <div>
+                        <p class="font-display text-4xl text-terraLt">01</p>
+                        <p class="text-xs uppercase tracking-widest mt-2 text-cream/50">Pâte fermentée</p>
+                        <p class="text-sm mt-1">Lente, vivante, digeste.</p>
+                    </div>
+                    <div>
+                        <p class="font-display text-4xl text-terraLt">02</p>
+                        <p class="text-xs uppercase tracking-widest mt-2 text-cream/50">Produits sourcés</p>
+                        <p class="text-sm mt-1">Direct des producteurs italiens.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== MENU ============== -->
+    <section id="menu" class="relative py-32 md:py-44 border-t border-cream/10">
+        <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10 mb-16 reveal" data-reveal>
+                <div>
+                    <p class="text-[10px] tracking-[0.4em] uppercase text-terraLt mb-6">— Menu officiel</p>
+                    <h2 class="font-display text-5xl md:text-7xl leading-[1.05] font-light">
+                        La carte<br>
+                        <span class="italic">Capanna</span>.
+                    </h2>
+                </div>
+                <p class="md:max-w-sm text-cream/60 leading-relaxed">
+                    Retrouvez les salades, antipasti, pizzas au four de bois, pasta, plats, desserts, boissons et jus de la maison.
+                </p>
+            </div>
+
+            <!-- Onglets -->
+            <div id="menu-tabs" class="flex flex-wrap gap-8 md:gap-12 mb-16 border-b border-cream/10 pb-6 reveal" data-reveal></div>
+
+            <!-- Grille -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20" style="perspective: 1500px;"></div>
+        </div>
+    </section>
+
+    <!-- ============== INFOS · BENTO ============== -->
+    <section id="infos" class="relative py-32 md:py-44 border-t border-cream/10 bg-ink">
+        <div class="max-w-[1500px] mx-auto px-6 md:px-12">
+
+            <div class="mb-16 reveal" data-reveal>
+                <p class="text-[10px] tracking-[0.4em] uppercase text-terraLt mb-6">— Nous trouver</p>
+                <h2 class="font-display text-5xl md:text-7xl leading-[1.05] font-light">Au carrefour<br><span class="italic">de l'Agdal</span>.</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-3 md:gap-4 md:h-[620px] reveal-stagger" data-reveal>
+
+                <div class="md:col-span-4 md:row-span-2 relative overflow-hidden group">
+                    <iframe
+                        src="https://www.google.com/maps?q=Avenue+de+France+Rue+Oued+Sebou+Agdal+Rabat&output=embed"
+                        title="Carte Capanna"
+                        class="w-full h-full min-h-[320px] grayscale contrast-125 brightness-90 group-hover:grayscale-0 transition-all duration-700"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="absolute top-4 left-4 bg-espresso/90 backdrop-blur px-4 py-3">
+                        <p class="text-[10px] tracking-widest uppercase text-terraLt">Localisation</p>
+                        <p class="font-display text-xl mt-1">Agdal, Rabat</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 bg-espresso p-7 flex flex-col justify-between border border-cream/5">
+                    <div>
+                        <p class="text-[10px] tracking-[0.3em] uppercase text-terraLt mb-3">Adresse</p>
+                        <p class="font-display text-3xl leading-tight font-light">Angle Av. de France<br>& Rue Oued Sebou</p>
+                    </div>
+                    <a href="https://maps.google.com/?q=Avenue+de+France+Rue+Oued+Sebou+Agdal+Rabat" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-xs tracking-widest uppercase text-terraLt hover:gap-4 transition-all" data-cursor-hover>
+                        Itinéraire <span>&rarr;</span>
+                    </a>
+                </div>
+
+                <div class="md:col-span-1 bg-espresso p-7 flex flex-col justify-between border border-cream/5">
+                    <p class="text-[10px] tracking-[0.3em] uppercase text-terraLt mb-3">Horaires</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between"><span class="text-cream/50">Lun–Jeu</span><span>12 – 23:30</span></li>
+                        <li class="flex justify-between"><span class="text-cream/50">Ven–Sam</span><span>12 – 00:30</span></li>
+                        <li class="flex justify-between"><span class="text-cream/50">Dim</span><span>12 – 23:00</span></li>
+                    </ul>
+                </div>
+
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="md:col-span-1 bg-terra hover:bg-terraLt p-7 flex flex-col justify-between transition-colors" data-cursor-hover>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                    </svg>
+                    <div>
+                        <p class="font-display text-2xl">@capanna</p>
+                        <p class="text-[10px] tracking-widest uppercase mt-1 opacity-70">Instagram</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============== RÉSERVATION ============== -->
+    <section id="reservation" class="relative py-32 md:py-44 border-t border-cream/10 overflow-hidden">
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none parallax" data-speed="0.2">
+            <span class="font-display italic text-[28vw] md:text-[20vw] leading-none text-cream/[0.04] select-none">tavola</span>
+        </div>
+
+        <div class="relative max-w-5xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-16 items-start">
+            <div class="reveal" data-reveal>
+                <p class="text-[10px] tracking-[0.4em] uppercase text-terraLt mb-6">— Réserver</p>
+                <h2 class="font-display text-5xl md:text-6xl leading-[1.05] font-light">
+                    Une <span class="italic">table</span><br>vous attend.
+                </h2>
+                <p class="mt-8 text-cream/60 leading-relaxed max-w-md">
+                    Confirmation envoyée par WhatsApp. Pour plus de 8 couverts, contactez-nous directement.
+                </p>
+            </div>
+
+            <form id="reservation-form" class="space-y-8 reveal" data-reveal novalidate>
+                <div>
+                    <label for="r-name" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Nom</label>
+                    <input id="r-name" name="name" type="text" required class="field w-full text-base">
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="r-guests" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Couverts</label>
+                        <input id="r-guests" name="guests" type="number" min="1" max="20" value="2" required class="field w-full text-base">
+                    </div>
+                    <div>
+                        <label for="r-phone" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Téléphone</label>
+                        <input id="r-phone" name="phone" type="tel" required class="field w-full text-base">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label for="r-date" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Date</label>
+                        <input id="r-date" name="date" type="date" required class="field w-full text-base">
+                    </div>
+                    <div>
+                        <label for="r-time" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Heure</label>
+                        <input id="r-time" name="time" type="time" required class="field w-full text-base">
+                    </div>
+                </div>
+
+                <button type="submit" class="magnetic btn-pill solid mt-4" data-cursor-hover>Confirmer · WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ============== FOOTER ============== -->
+    <footer class="bg-ink border-t border-cream/10 relative overflow-hidden">
+        <div class="max-w-[1500px] mx-auto px-6 md:px-12 py-20">
+            <div class="grid md:grid-cols-3 gap-12 mb-16">
+                <div>
+                    <p class="font-display text-3xl tracking-[0.3em]">CAPANNA</p>
+                    <p class="mt-4 text-sm text-cream/50 max-w-xs leading-relaxed">Trattoria contemporaine. Pizzeria artisanale. Au cœur de l'Agdal.</p>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-terraLt mb-4">Contact</p>
+                    <p class="text-sm leading-relaxed">Angle Avenue de France<br>& Rue Oued Sebou<br>Agdal, Rabat — Maroc</p>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-terraLt mb-4">Naviguer</p>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#menu" class="hover:text-terraLt transition-colors" data-cursor-hover>La Carte</a></li>
+                        <li><a href="#reservation" class="hover:text-terraLt transition-colors" data-cursor-hover>Réserver</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener" class="hover:text-terraLt transition-colors" data-cursor-hover>Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-cream/10 pt-6 flex flex-col md:flex-row justify-between gap-3 text-[11px] tracking-widest uppercase text-cream/30">
+                <span>© 2026 Capanna · Tous droits réservés</span>
+                <span>Cucina italiana contemporanea</span>
+            </div>
+        </div>
+
+        <p class="font-display italic text-[20vw] leading-none text-cream/[0.03] absolute -bottom-8 left-1/2 -translate-x-1/2 pointer-events-none whitespace-nowrap">capanna</p>
+    </footer>
+
+    <!-- ============== SIDEBAR PANIER ============== -->
+    <div id="cart-backdrop" class="cart-backdrop fixed inset-0 bg-espresso/70 backdrop-blur-sm z-40"></div>
+
+    <aside id="cart-sidebar" class="cart-sidebar fixed top-0 right-0 h-full w-full sm:w-[440px] bg-ink z-50 shadow-2xl flex flex-col border-l border-cream/10">
+        <div class="flex items-center justify-between px-7 py-6 border-b border-cream/10">
+            <div>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-terraLt">Votre sélection</p>
+                <h3 class="font-display text-3xl font-light mt-1">Panier</h3>
+            </div>
+            <button id="close-cart-btn" aria-label="Fermer" class="p-2 hover:rotate-90 transition-transform duration-500" data-cursor-hover>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-1 overflow-y-auto thin-scroll px-7 py-6 space-y-6">
+            <p id="cart-empty" class="text-center text-cream/40 py-20 text-sm">Votre panier est encore vide.</p>
+        </div>
+
+        <div class="border-t border-cream/10 px-7 py-6 space-y-5 bg-espresso">
+            <div class="flex justify-between items-baseline">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-cream/50">Total</span>
+                <span class="font-display text-4xl"><span id="cart-total">0</span> <span class="text-base text-cream/60">Dh</span></span>
+            </div>
+            <button id="checkout-btn" disabled class="magnetic btn-pill solid w-full text-center disabled:opacity-25 disabled:cursor-not-allowed" data-cursor-hover>
+                Finaliser la commande
+            </button>
+        </div>
+    </aside>
+
+    <!-- ============== MODALE CHECKOUT ============== -->
+    <div id="checkout-modal" class="modal-overlay fixed inset-0 bg-espresso/80 backdrop-blur-md z-[60] flex items-center justify-center p-4">
+        <div class="modal-card bg-ink w-full max-w-lg max-h-[90vh] overflow-y-auto border border-cream/10">
+            <div class="flex items-center justify-between px-7 py-6 border-b border-cream/10">
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-terraLt">Dernière étape</p>
+                    <h3 class="font-display text-2xl mt-1 font-light">Vos coordonnées</h3>
+                </div>
+                <button id="close-modal-btn" aria-label="Fermer" class="p-2" data-cursor-hover>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <form id="checkout-form" class="px-7 py-7 space-y-7" novalidate>
+
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-4">Mode</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="cursor-pointer" data-cursor-hover>
+                            <input type="radio" name="mode" value="Livraison" class="peer sr-only" checked>
+                            <div class="border border-cream/15 peer-checked:border-terraLt peer-checked:bg-terra/10 peer-checked:text-terraLt py-4 text-center text-[10px] tracking-[0.3em] uppercase transition-all rounded-full">Livraison</div>
+                        </label>
+                        <label class="cursor-pointer" data-cursor-hover>
+                            <input type="radio" name="mode" value="À emporter" class="peer sr-only">
+                            <div class="border border-cream/15 peer-checked:border-terraLt peer-checked:bg-terra/10 peer-checked:text-terraLt py-4 text-center text-[10px] tracking-[0.3em] uppercase transition-all rounded-full">À emporter</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="c-name" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Nom complet</label>
+                    <input id="c-name" name="name" type="text" required class="field w-full text-base">
+                </div>
+
+                <div>
+                    <label for="c-phone" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Téléphone</label>
+                    <input id="c-phone" name="phone" type="tel" required class="field w-full text-base">
+                </div>
+
+                <div id="address-field">
+                    <label for="c-address" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Adresse de livraison</label>
+                    <input id="c-address" name="address" type="text" placeholder="Quartier, rue, immeuble, étage" class="field w-full text-base">
+                </div>
+
+                <div>
+                    <label for="c-notes" class="block text-[10px] uppercase tracking-[0.3em] text-cream/50 mb-3">Note (optionnelle)</label>
+                    <input id="c-notes" name="notes" type="text" class="field w-full text-base">
+                </div>
+
+                <button type="submit" class="magnetic btn-pill solid w-full mt-2 flex items-center justify-center gap-3" data-cursor-hover>
+                    Envoyer sur WhatsApp
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js" defer></script>
+</body>
+</html>
