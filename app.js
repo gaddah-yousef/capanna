@@ -462,7 +462,7 @@ function handleCheckout(e) {
     if (!form.name.value.trim() || !form.phone.value.trim()) { form.reportValidity(); return; }
     if (form.mode.value === 'Livraison' && !form.address.value.trim()) { form.address.focus(); return; }
 
-    const phone   = state.restaurant?.phone || '212600000000';
+    const phone   = state.restaurant?.phone || '212708207496';
     const message = buildWhatsAppMessage(form);
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
 
@@ -483,7 +483,7 @@ function handleReservation(e) {
     if (!f.name.value.trim() || !f.phone.value.trim() || !f.date.value || !f.time.value) {
         f.reportValidity(); return;
     }
-    const phone = state.restaurant?.phone || '212600000000';
+    const phone = state.restaurant?.phone || '212708207496';
     const msg = [
         'Demande de réservation — Capanna', '',
         `Nom : ${f.name.value.trim()}`,
